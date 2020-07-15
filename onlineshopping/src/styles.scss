@@ -1,0 +1,33 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-color: rgb(83, 86, 91); }
+@import "~bootstrap/dist/css/bootstrap.css";
+@import "@fortawesome/fontawesome-free-webfonts/scss/fontawesome.scss";
+@import "@fortawesome/fontawesome-free/css/all.css";
+
+.menu-panel {
+    padding-top: 10px;
+    margin-left: 204px;
+    border-bottom: 1px solid aliceblue;
+    background-color: white !important;
+    min-height: fit-content;
+}
+.header-section {
+    background-color: ghostwhite !important;
+}
+.float-right{
+    float : right;
+}
+.price-section{
+    padding-left: 15px;
+}
+.order-filed{
+    padding: 10px 0 10px 0;
+}
+
+.button-style{
+    text-align: center;
+    background-color : yellowgreen;
+    margin-bottom: 10px;
+  }

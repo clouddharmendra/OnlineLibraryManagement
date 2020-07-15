@@ -1,0 +1,48 @@
+<div class="col-sm-8 menu-panel border" style="border: 2px solid red;">
+    <!-- <div class="container-fluid"> -->
+    <div class="row divBgvColor">
+        <div class="col-sm-4">
+            <div>
+                <img class="imgstyle" src="/assets/img/{{bookDetails.image}}.JPG" width="150">
+            </div>
+            <div class="booktitle">
+                <span class="book-text">{{bookDetails.title}}</span>
+            </div>
+        </div>
+        <div class="col-sm-8">
+            <div class="row spaceinbtwn">
+                <div class="col-sm-4 labelFont labelFont1">Language:</div>
+                <div class="col-sm-4 labelFont1">{{bookDetails.language}}</div>
+            </div>
+            <div class="row spaceinbtwn">
+                <div class="col-sm-4 labelFont labelFont1">Year Of Publication:</div>
+                <div class="col-sm-4 labelFont1">{{bookDetails.yearOfPublication}}</div>
+            </div>
+            <div class="row spaceinbtwn">
+                <div class="col-sm-4 labelFont labelFont1">Genre:</div>
+                <div class="col-sm-4 labelFont1">{{bookDetails.genre}}</div>
+            </div>
+            <div class="row spaceinbtwn">
+                <div class="col-sm-4  labelFont labelFont1">Author:</div>
+                <div class="col-sm-4 labelFont1">{{bookDetails.author}}</div>
+            </div>
+            <div class="row spaceinbtwn">
+                <div class="col-sm-4 labelFont labelFont1">Description:</div>
+                <div class="col-sm-4 labelFont1">{{bookDetails.description}}</div>
+            </div>
+            <div class="row spaceinbtwn">
+                <div class="col-sm-4 labelFont labelFont1">ISBN:</div>
+                <div class="col-sm-4 labelFont1">{{bookDetails.isbn}}</div>
+            </div>
+            <div class="row spaceforprice">
+                <div class="col-sm-4  labelFont labelFont1">Price:</div>
+                <div class="col-sm-4 labelFont1">${{bookDetails.price}}</div>
+            </div>
+            <div class="row spaceforprice">
+                <div class="col-sm-4"></div>
+                <div class="col-sm-4"><button *ngIf="bookDetails.btnText === 'Borrow'" class="btn"
+                        (click)="barrowBook()">{{bookDetails.btnText}}</button></div>
+            </div>
+        </div>
+    </div>
+</div>

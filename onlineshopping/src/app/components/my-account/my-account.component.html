@@ -1,0 +1,37 @@
+<div class="col-sm-6 menu-panel border login">
+    <h6 *ngIf="!(myBooks && myBooks.length > 0)">You’ve not borrowed any books at present.</h6>
+    <h6 *ngIf="(myBooks && myBooks.length > 0)"><span style="color: green;">You have borrowed..</span></h6>
+</div>
+<div class="col-sm-6 menu-panel border login">
+    <div>
+        <div class="col-sm-12">
+            <div class="row col-sm-12" *ngIf=" myBooks && myBooks.length > 0">
+                <div class="col-sm-6 item-box" *ngFor="let book of myBooks; let bookIndex = index;">
+                    <span class="col-sm-6">
+                        <!-- <div style="width: 150px;background-color: rgb(0, 83, 137);border-radius:5px 5px 0px 0px;">
+                            <span style="width: 150px;font-size: 12px;color: ivory;padding-left: 20px;">{{book.title}}</span>
+                        </div> -->
+                        <div class="row">
+                            <div class="col-4">
+                                <img style="border-radius:5px 5px 5px 5px; height:150px;border: solid 2px black;"
+                                    src="/assets/img/{{book.image}}.JPG" width="80">
+                            </div>
+                            <div class="col-8">
+                                <div class="row" style="font-weight: bold;font-style: normal;font-size: large;margin-left: 10px;">
+                                    {{book.title}}</div>
+                                <div class="row" style="font-style: normal;font-size: small;margin-top: 15px;">
+                                    <div class="col-sm-6" style="font-weight: bold;">Author:</div>
+                                    <div class="col-sm-6">{{book.author}}</div>
+                                </div>
+                                <div class="row" style="font-style: normal;font-size: small;margin-top: 15px">
+                                    <div class="col-sm-6" style="font-weight: bold;">Borrowed Date:</div>
+                                    <div class="col-sm-6">{{book.borrowedDate | date:'MM/dd/yyyy'}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

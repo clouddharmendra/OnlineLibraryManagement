@@ -1,0 +1,43 @@
+.labelFont{
+    font-weight: bold;
+}
+.labelFont1{
+    font-size: smaller;
+}
+.spaceinbtwn{
+    margin-top: 15px;
+}
+.spaceforprice{
+    margin-top: 25px;
+    // color: green;
+    color: rgb(76, 166, 127);
+}
+.btn{
+    border-radius: 5px; 
+    width: 75px;
+    height: 40px;
+    background-color: rgb(66, 176, 41);
+    color: ivory;
+}
+
+.divBgvColor{
+    background-color: (222, 239, 233);
+}
+
+.imgstyle{
+    height: 270px; 
+    border-radius:5px 5px 0px 0px;
+}
+
+.booktitle{
+    width: 150px;
+    background-color: rgb(128,128,128);
+    border-radius:0px 0px 5px 5px;
+}
+.book-text{
+    width: 150px;
+    font-size: 12px;
+    color: ivory;
+    padding-left: 20px;
+    margin-left: 5px;
+}
