@@ -1,0 +1,75 @@
+<div class="col-sm-8 menu-panel header">
+    <form [formGroup]="searchForm">
+        <div class="container" style="height: 250px;margin-left: 65px;">
+            <div class="row">
+                <div class="col-6" style="height: 200px;">
+                    <div class="row" style="height: 100px;margin-top: 25px;">
+                        <label>Language</label>
+                        <select id="language" name="language" formControlName="language" class="form-control">
+                            <option *ngFor="let language of languages" [value]="language">{{language}}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="row" style="height: 100px;">
+                        <label>Genre</label>
+                        <select id="genre" name="genre" class="form-control" formControlName="genre"
+                            style="margin-left: 50px;">
+                            <option *ngFor="let genre of genres" [value]="genre">{{genre}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-6" style="height: 200px;">
+                    <div class="row" style="height: 100px; margin: 25px 0px 0px 0px;">
+                        <label>Title</label>
+                        <input type="text" class="form-control" placeholder="Title" formControlName="title">
+                    </div>
+                    <div class="row" style="height: 100px;">
+                        <label>Author</label>
+                        <input type="text" class="form-control" placeholder="Author" formControlName="author">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <button type="button" class="btn btn-primary" (click)="onSearch()"
+                    style="margin-left: 300px; width: 150px;">Search
+                </button>
+            </div>
+        </div>
+    </form>
+    <div class="container" style="height: 200px; overflow-y: auto; margin-top: 30px;">
+        <div class="row">
+            <div class="rTable">
+                <div class="rTableBody" *ngIf="!noRecordsFound" style="border-radius: 5px;">
+                    <div class="rTableRow green-color">
+                        <div class="rTableCell">S.No.</div>
+                        <div class="rTableCell">Book Name</div>
+                        <div class="rTableCell">Author</div>
+                        <div class="rTableCell">Publisher</div>
+                        <div class="rTableCell">ISBN</div>
+                        <div class="rTableCell"></div>
+                    </div>
+                    <div class="rTableRow" *ngFor="let book of booksFilter; let bookIndex = index;">
+                        <div class="rTableCell">{{bookIndex+1}}</div>
+                        <div class="rTableCell">{{book.title}}</div>
+                        <div class="rTableCell">{{book.author}}</div>
+                        <div class="rTableCell">{{book.publisher}}</div>
+                        <div class="rTableCell">{{book.isbn}}</div>
+                        <div class="rTableCell"><button class="btn btn-primary">View Details</button></div>
+                    </div>
+                    <div class="rTableRow" style="height: 40px;" *ngIf="(booksFilter.length <= 0)">
+                        <div class="rTableCell">{{emptyString}}</div>
+                        <div class="rTableCell">{{emptyString}}</div>
+                        <div class="rTableCell">{{emptyString}}</div>
+                        <div class="rTableCell">{{emptyString}}</div>
+                        <div class="rTableCell">{{emptyString}}</div>
+                        <div class="rTableCell">{{emptyString}}</div>
+                    </div>
+                </div>
+                <div *ngIf="noRecordsFound">
+                    <p><span style="color: red; font-size: medium; font-weight: bold;">No Books found.</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

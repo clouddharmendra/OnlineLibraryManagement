@@ -26,7 +26,7 @@ export class BookDetailsComponent implements OnInit {
     this.onlineShoppingObserver.userData$.subscribe((user: User) => {
       this.userEmail = user.emailId;
       if (null === user) {
-          this.router.navigateByUrl(appProperties.URL_ROUTE_HOME);
+          this.router.navigateByUrl(appProperties.URL_WLCM);
       } else {
         this.onlineShoppingService.getSelectedBooksInfo(this.userEmail).subscribe((response: SelectedBooks) => {
           this.selectedBooks = response;
@@ -51,7 +51,7 @@ export class BookDetailsComponent implements OnInit {
     this.onlineShoppingService.updateMyBooks(this.selectedBooks).subscribe(response => {
       console.log('Response on Book Save :-> ', response);
     });
-    this.router.navigateByUrl(appProperties.URL_ROUTE_ACCT);
-    this.router.navigateByUrl(appProperties.URL_ROUTE_HOME);
+    // this.router.navigateByUrl(appProperties.URL_ROUTE_ACCT);
+    this.router.navigateByUrl(appProperties.URL_HOME);
   }
 }

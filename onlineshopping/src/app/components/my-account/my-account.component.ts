@@ -24,7 +24,7 @@ export class MyAccountComponent implements OnInit {
   ngOnInit() {
     this.onlineShoppingObserver.userData$.subscribe((user: User) => {
       if (!user || undefined === user || null === user) {
-        this.router.navigateByUrl(appProperties.URL_ROUTE_HOME);
+        this.router.navigateByUrl(appProperties.URL_WLCM);
       } else {
         this.onlineShoppingService.getSelectedBooksInfo(user.emailId).subscribe((selectedBooks: SelectedBooks) => {
           this.myBooks = selectedBooks.myBooks;

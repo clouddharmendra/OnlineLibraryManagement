@@ -6,6 +6,7 @@ import { OnlineShoppingObserver } from 'src/app/services/online-shopping-observe
 import { Book } from 'src/app/models/books.model';
 import { SelectedBooks } from 'src/app/models/selected-books.model';
 import { Router } from '@angular/router';
+import { User } from 'src/app/models/user.dto';
 
 @Component({
   selector: 'app-home',
@@ -13,17 +14,10 @@ import { Router } from '@angular/router';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  public userInfo;
-  public todayDate = new Date().toLocaleDateString();
+  public userInfo: User;
   public books: Book[] = [];
-  public orderedData: OrderDetails;
   public booksMsterData: Book[];
   public searchText: string;
-  // public searchCategory = appProperties.BRAND_FILTER;
-  public sizeList = appProperties.sizeList;
-  public qtyList = appProperties.qtyList;
-  public categoryList = appProperties.categoryList;
-  // public selectedBook: Book;
   public selectedBooks: SelectedBooks;
   constructor(public onlineShoppingService: OnlineShoppingService, private onlineShoppingObserver:
     OnlineShoppingObserver, public router: Router) { }
@@ -32,25 +26,29 @@ export class HomeComponent implements OnInit {
     this.onlineShoppingObserver.userData$.subscribe(user => {
       this.userInfo = user;
 
-      this.onlineShoppingService.getAllBooks().subscribe(data => {
-        if (null !== this.userInfo && null !== this.userInfo.emailId) {
-          this.onlineShoppingService.getSelectedBooksInfo(this.userInfo.emailId).subscribe((selectedBooks) => {
-            this.selectedBooks = selectedBooks;
-            for (var j = 0; j < data.length; j++) {
-              for (var k = 0; k < this.selectedBooks.myBooks.length; k++) {
-                if (data[j].title === this.selectedBooks.myBooks[k].title) {
-                  data[j].available = false;
-                  data[j].btnText = this.selectedBooks.myBooks[k].btnText;
+      if (null === user) {
+        this.router.navigateByUrl(appProperties.URL_WLCM);
+      } else {
+        this.onlineShoppingService.getAllBooks().subscribe(data => {
+          if (null !== this.userInfo && null !== this.userInfo.emailId) {
+            this.onlineShoppingService.getSelectedBooksInfo(this.userInfo.emailId).subscribe((selectedBooks) => {
+              this.selectedBooks = selectedBooks;
+              for (var j = 0; j < data.length; j++) {
+                for (var k = 0; k < this.selectedBooks.myBooks.length; k++) {
+                  if (data[j].title === this.selectedBooks.myBooks[k].title) {
+                    data[j].available = false;
+                    data[j].btnText = this.selectedBooks.myBooks[k].btnText;
+                  }
                 }
+                this.books.push(data[j]);
               }
-              this.books.push(data[j]);
-            }
-          }, error => {
-            this.booksMsterData = this.books = data;
-          });
-        }
-        this.booksMsterData = this.books;
-      });
+            }, error => {
+              this.booksMsterData = this.books = data;
+            });
+          }
+          this.booksMsterData = this.books;
+        });
+      }
     });
   }
 
@@ -61,12 +59,16 @@ export class HomeComponent implements OnInit {
       let searchValue = this.searchText.trim().toLocaleLowerCase() ? this.searchText.trim().toLocaleLowerCase() : this.searchText.trim();
       this.books = [];
       for (var l = 0; l < this.booksMsterData.length; l++) {
-        let author = this.booksMsterData[l].author.trim().toLocaleLowerCase();
-        if (author === searchValue) {
+        let title = this.booksMsterData[l].title.trim().toLocaleLowerCase();
+        if (title.includes(searchValue)) {
           this.books.push(this.booksMsterData[l]);
         }
       }
     }
+  }
+
+  advancedSearch() {
+    this.router.navigateByUrl(appProperties.URL_ADVSERCH);
   }
 
   // To show Book Details in new window

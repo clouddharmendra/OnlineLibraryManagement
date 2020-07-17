@@ -1,15 +1,14 @@
-<div class="col-sm-8 menu-panel header"><b>Home</b></div>
+<div class="col-sm-8 menu-panel header"></div>
 <div>
     <div class="col-sm-8 menu-panel">
         <div *ngIf=" userInfo && userInfo.id" class="container-fluid">
             <div class="box">
-                <input type="text" style="border-radius: 5px;width: 250px;" id="filterValue" [(ngModel)]="searchText"
+                <input type="text" class="form-control search-border" id="filterValue" [(ngModel)]="searchText"
                     placeholder="Search Here">
-                <button type="button" class="button-style" (click)="searchDetails()"
-                    style="border-radius: 5; background-color: rgb(66, 176, 41); color: ivory; border-radius: 5px;">Search</button>
-                <button type="button" class="button-style" (click)="searchDetails()"
-                    style="border-radius: 5; background-color: rgb(16, 78, 151); color: ivory; border-radius: 5px;">Advanced
-                    Search</button>
+                <button id="search" (click)="searchDetails()"
+                    class="btn btn-primary search-btn">Search</button>
+                <button (click)="advancedSearch()"
+                    class="btn search-advanced">Advanced Search</button>
             </div>
         </div>
     </div>
@@ -24,15 +23,15 @@
                                     style="width: 150px;font-size: 12px;color: ivory;padding-left: 20px;">{{book.title}}</span>
                             </div>
                             <div>
-                                <img style="height: 225px;" src="/assets/img/{{book.image}}.JPG" width="150"
+                                <img style="height: 225px; border-left: black 1px solid; border-right: black 1px solid;" src="/assets/img/{{book.image}}.JPG" width="150"
                                     (click)="onClick(book)">
-                                <div style="width: 150px;background-color: white;">
+                                <div style="width: 150px;background-color: rgb(238, 227, 227); border-left: black 1px solid; border-right: black 1px solid;">
                                     <span style="width: 150px;font-size: 12px;color: black;padding-left: 20px;"> Price :
                                         &#8377;{{book.price}}</span></div>
                             </div>
                             <div>
                                 <span>
-                                    <button [ngClass]="{'green-color': book.available,'gray-color': !book.available}"
+                                    <button style="border-left: black 1px solid; border-right: black 1px solid;" [ngClass]="{'green-color': book.available,'gray-color': !book.available}"
                                         type="button" class="button-style" (click)="barrowBook(book)"
                                         [disabled]="book.btnText==='Not Available'">{{book.btnText}}</button>
                                 </span>
@@ -43,10 +42,6 @@
                 <div class="row" *ngIf="!books || books && books.length === 0">
                     <p class="welcome-message"> No Books to Display here, Please Refine Your Search Criteria </p>
                 </div>
-            </div>
-            <div class="row" *ngIf="!userInfo || userInfo && !userInfo.id">
-                <p class="welcome-message"> <a routerLink="/login"><b>Login</b></a> To See Available Products
-                </p>
             </div>
         </div>
     </div>

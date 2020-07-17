@@ -13,6 +13,7 @@ export class Book {
         public isbn?: number,
         public btnText?: string,
         public emailId?: string,
-        public borrowedDate?: Date
+        public borrowedDate?: Date,
+        public publisher?: string,
     ) { }
 }

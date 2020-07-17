@@ -14,6 +14,7 @@ import { MyAccountComponent } from './components/my-account/my-account.component
 import { UserLoginComponent } from './components/user-login/user-login.component';
 import { OnlineShoppingObserver } from './services/online-shopping-observer';
 import { BookDetailsComponent } from './components/book-details/book-details.component';
+import { AdvancedSearchComponent } from './components/advanced-search/advanced-search.component';
 
 
 @NgModule({
@@ -27,6 +28,7 @@ import { BookDetailsComponent } from './components/book-details/book-details.com
     MyAccountComponent,
     UserLoginComponent,
     BookDetailsComponent,
+    AdvancedSearchComponent,
   ],
   imports: [
     BrowserModule,

@@ -4,13 +4,13 @@
 <div class="col-sm-6 menu-panel border login">
     <div class="form-group">
         <label for="username">Email Id</label>
-        <input type="text" [(ngModel)]="emailId" class="form-control" />
-        <div class="invalid-feedback">
-            <div>Email Id is required</div>
+        <input type="text" [(ngModel)]="emailId" class="form-control" style="width: 50%;" />
+        <div *ngIf="emailErr" style="color: red;">
+            <span style="font-size: small;">Enter valid email address.</span>
         </div>
     </div>
     <div class="form-group">
         <button [disabled]="loading" (click)="loginUser()" class="btn btn-primary">Login</button>
-        <a routerLink="/account" class="btn btn-link">Sign Up</a>
+        <!-- <a routerLink="/account" class="btn btn-link">Sign Up</a> -->
     </div>
 </div>

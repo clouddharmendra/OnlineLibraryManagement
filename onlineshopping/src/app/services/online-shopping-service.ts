@@ -41,23 +41,23 @@ export class OnlineShoppingService {
     return this.http.post<any>(environment.updateMyBooks, myBooks);
   }
 
-  placeOrder(orderData): any {
-    return this.http.post<any>(environment.placeOrderUrl, orderData);
-  }
+  // placeOrder(orderData): any {
+  //   return this.http.post<any>(environment.placeOrderUrl, orderData);
+  // }
 
 
-  getMyOrders(emailId): any {
-    return this.http.get<any>(environment.getMyOrdersUrl + emailId);
-  }
+  // getMyOrders(emailId): any {
+  //   return this.http.get<any>(environment.getMyOrdersUrl + emailId);
+  // }
 
-  updateOrderStatus(order): any {
-    return this.http.put<any>(environment.updateOrderStatus + order.id, order);
-  }
-  updateUserDetails(user, type): any {
-    if (type && type === appProperties.ADD_OPERATION) {
-      return this.http.post<any>(environment.addUserDetailsUrl, user);
-    } else {
-      return this.http.put<any>(environment.updateUserDetailsUrl, user);
-    }
-  }
+  // updateOrderStatus(order): any {
+  //   return this.http.put<any>(environment.updateOrderStatus + order.id, order);
+  // }
+  // updateUserDetails(user, type): any {
+  //   if (type && type === appProperties.ADD_OPERATION) {
+  //     return this.http.post<any>(environment.addUserDetailsUrl, user);
+  //   } else {
+  //     return this.http.put<any>(environment.updateUserDetailsUrl, user);
+  //   }
+  // }
 }
