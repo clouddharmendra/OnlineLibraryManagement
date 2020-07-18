@@ -1,11 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Book } from 'src/app/models/books.model';
-import { OnlineShoppingService } from 'src/app/services/online-shopping-service';
 import { SelectedBooks } from 'src/app/models/selected-books.model';
-import { User } from 'src/app/models/user.dto';
-import { OnlineShoppingObserver } from 'src/app/services/online-shopping-observer';
-import { Router, ActivatedRoute } from '@angular/router';
+import { User } from 'src/app/models/user.model';import { Router, ActivatedRoute } from '@angular/router';
 import * as appProperties from 'src/app/app.properties'
+import { OnlineLibraryMgmtService } from 'src/app/services/online-library-mgmt.service';
 
 @Component({
   selector: 'app-book-details',
@@ -18,17 +16,16 @@ export class BookDetailsComponent implements OnInit {
   userEmail: string;
   selectedBooks: SelectedBooks;
 
-  constructor(private onlineShoppingService: OnlineShoppingService,
-    private onlineShoppingObserver: OnlineShoppingObserver,
+  constructor(private onlineLibraryMgmtService: OnlineLibraryMgmtService,
     private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.onlineShoppingObserver.userData$.subscribe((user: User) => {
+    this.onlineLibraryMgmtService.userData$.subscribe((user: User) => {
       this.userEmail = user.emailId;
       if (null === user) {
           this.router.navigateByUrl(appProperties.URL_WLCM);
       } else {
-        this.onlineShoppingService.getSelectedBooksInfo(this.userEmail).subscribe((response: SelectedBooks) => {
+        this.onlineLibraryMgmtService.getSelectedBooksInfo(this.userEmail).subscribe((response: SelectedBooks) => {
           this.selectedBooks = response;
         });
         let bookDetails = this.route.snapshot.queryParamMap.get('book');
@@ -48,7 +45,7 @@ export class BookDetailsComponent implements OnInit {
     this.bookDetails.borrowedDate = new Date();
     this.selectedBooks.emailId = this.userEmail;
     this.selectedBooks.myBooks.push(this.bookDetails);
-    this.onlineShoppingService.updateMyBooks(this.selectedBooks).subscribe(response => {
+    this.onlineLibraryMgmtService.updateMyBooks(this.selectedBooks).subscribe(response => {
       console.log('Response on Book Save :-> ', response);
     });
     // this.router.navigateByUrl(appProperties.URL_ROUTE_ACCT);

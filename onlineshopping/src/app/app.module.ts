@@ -12,7 +12,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { WelcomePageComponent } from './components/welcome-page/welcome-page.component';
 import { MyAccountComponent } from './components/my-account/my-account.component';
 import { UserLoginComponent } from './components/user-login/user-login.component';
-import { OnlineShoppingObserver } from './services/online-shopping-observer';
 import { BookDetailsComponent } from './components/book-details/book-details.component';
 import { AdvancedSearchComponent } from './components/advanced-search/advanced-search.component';
 
@@ -23,7 +22,6 @@ import { AdvancedSearchComponent } from './components/advanced-search/advanced-s
     NavbarComponent,
     HomeComponent,
     NotFoundComponent,
-    // CartInfoComponent,
     WelcomePageComponent,
     MyAccountComponent,
     UserLoginComponent,
@@ -38,7 +36,7 @@ import { AdvancedSearchComponent } from './components/advanced-search/advanced-s
     AppRoutingModule,
     BrowserAnimationsModule,
   ],
-  providers: [OnlineShoppingObserver],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

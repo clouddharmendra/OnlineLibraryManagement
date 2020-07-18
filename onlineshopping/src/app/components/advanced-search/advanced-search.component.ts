@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { OnlineShoppingObserver } from 'src/app/services/online-shopping-observer';
-import { User } from 'src/app/models/user.dto';
+import { User } from 'src/app/models/user.model';
 import { Router } from '@angular/router';
-import { OnlineShoppingService } from 'src/app/services/online-shopping-service';
 import * as appProperties from 'src/app/app.properties';
 import { Book } from 'src/app/models/books.model';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { OnlineLibraryMgmtService } from 'src/app/services/online-library-mgmt.service';
 
 @Component({
   selector: 'app-advanced-search',
@@ -25,7 +24,7 @@ export class AdvancedSearchComponent implements OnInit {
   searchForm: FormGroup;
   emptyString: string = '';
   noRecordsFound: boolean = false;
-  constructor(private fb: FormBuilder, private onlineShoppingService: OnlineShoppingService, private onlineShoppingObserver: OnlineShoppingObserver, private router: Router) {
+  constructor(private fb: FormBuilder, private onlineLibraryMgmtService: OnlineLibraryMgmtService, private router: Router) {
     this.searchForm = this.fb.group({
       language: ['Select'],
       genre: ['Select'],
@@ -35,11 +34,11 @@ export class AdvancedSearchComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.onlineShoppingObserver.userData$.subscribe((user: User) => {
+    this.onlineLibraryMgmtService.userData$.subscribe((user: User) => {
       if (null === user) {
         this.router.navigateByUrl(appProperties.URL_WLCM);
       } else {
-        this.onlineShoppingService.getAllBooks().subscribe(data => {
+        this.onlineLibraryMgmtService.getAllBooks().subscribe(data => {
           this.books = data;
         });
       }

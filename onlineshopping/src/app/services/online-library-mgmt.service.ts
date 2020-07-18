@@ -1,15 +1,19 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import * as appProperties from 'src/app/app.properties';
 import { SelectedBooks } from '../models/selected-books.model';
-import { Book } from '../models/books.model';
+import { BehaviorSubject } from 'rxjs';
+import { User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class OnlineShoppingService {
-
+export class OnlineLibraryMgmtService {
+  private userData = new BehaviorSubject(null);
+  userData$ = this.userData.asObservable();
+  subscribeUserData(userInfo: User) {
+    this.userData.next(userInfo);
+  }
   private _showBookDetails: boolean;
 
   public get showBookDetails(): boolean {
@@ -40,24 +44,4 @@ export class OnlineShoppingService {
   updateMyBooks(myBooks: SelectedBooks): any {
     return this.http.post<any>(environment.updateMyBooks, myBooks);
   }
-
-  // placeOrder(orderData): any {
-  //   return this.http.post<any>(environment.placeOrderUrl, orderData);
-  // }
-
-
-  // getMyOrders(emailId): any {
-  //   return this.http.get<any>(environment.getMyOrdersUrl + emailId);
-  // }
-
-  // updateOrderStatus(order): any {
-  //   return this.http.put<any>(environment.updateOrderStatus + order.id, order);
-  // }
-  // updateUserDetails(user, type): any {
-  //   if (type && type === appProperties.ADD_OPERATION) {
-  //     return this.http.post<any>(environment.addUserDetailsUrl, user);
-  //   } else {
-  //     return this.http.put<any>(environment.updateUserDetailsUrl, user);
-  //   }
-  // }
 }

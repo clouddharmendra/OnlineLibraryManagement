@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { OnlineShoppingService } from 'src/app/services/online-shopping-service';
-import { OnlineShoppingObserver } from 'src/app/services/online-shopping-observer';
-import { User } from 'src/app/models/user.dto';
+import { User } from 'src/app/models/user.model';
 import * as appProperties from 'src/app/app.properties';
-import { SelectedBooks } from 'src/app/models/selected-books.model';
+import { OnlineLibraryMgmtService } from 'src/app/services/online-library-mgmt.service';
 
 @Component({
     selector: 'app-user-login',
@@ -17,8 +15,7 @@ export class UserLoginComponent implements OnInit {
     userData: User;
     emailErr: boolean = false;
      reg = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
-    constructor(private onlineShoppingService: OnlineShoppingService, private onlineShoppingObserver:
-        OnlineShoppingObserver, private router: Router) {
+    constructor(private onlineLibraryMgmtService: OnlineLibraryMgmtService,  private router: Router) {
     }
 
     ngOnInit() {
@@ -30,10 +27,10 @@ export class UserLoginComponent implements OnInit {
         if (!this.reg.test(this.emailId)) {
             this.emailErr = true;
         } else if (this.emailId) {
-            this.onlineShoppingService.userLogin(this.emailId).subscribe(response => {
+            this.onlineLibraryMgmtService.userLogin(this.emailId).subscribe(response => {
                 if (response && response.emailId) {
                     this.userData = response;
-                    this.onlineShoppingObserver.subscribeUserData(this.userData);
+                    this.onlineLibraryMgmtService.subscribeUserData(this.userData);
                     this.router.navigateByUrl(appProperties.URL_HOME);
                 } else {
                     this.router.navigateByUrl(appProperties.URL_ACCT);

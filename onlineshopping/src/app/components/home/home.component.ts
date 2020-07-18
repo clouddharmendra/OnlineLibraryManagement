@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { OnlineShoppingService } from 'src/app/services/online-shopping-service';
 import * as appProperties from 'src/app/app.properties';
-import { OrderDetails } from 'src/app/models/order-details.dto';
-import { OnlineShoppingObserver } from 'src/app/services/online-shopping-observer';
 import { Book } from 'src/app/models/books.model';
 import { SelectedBooks } from 'src/app/models/selected-books.model';
 import { Router } from '@angular/router';
-import { User } from 'src/app/models/user.dto';
+import { User } from 'src/app/models/user.model';
+import { OnlineLibraryMgmtService } from 'src/app/services/online-library-mgmt.service';
 
 @Component({
   selector: 'app-home',
@@ -19,19 +17,18 @@ export class HomeComponent implements OnInit {
   public booksMsterData: Book[];
   public searchText: string;
   public selectedBooks: SelectedBooks;
-  constructor(public onlineShoppingService: OnlineShoppingService, private onlineShoppingObserver:
-    OnlineShoppingObserver, public router: Router) { }
+  constructor(public onlineLibraryMgmtService: OnlineLibraryMgmtService,  public router: Router) { }
 
   ngOnInit() {
-    this.onlineShoppingObserver.userData$.subscribe(user => {
+    this.onlineLibraryMgmtService.userData$.subscribe(user => {
       this.userInfo = user;
 
       if (null === user) {
         this.router.navigateByUrl(appProperties.URL_WLCM);
       } else {
-        this.onlineShoppingService.getAllBooks().subscribe(data => {
+        this.onlineLibraryMgmtService.getAllBooks().subscribe(data => {
           if (null !== this.userInfo && null !== this.userInfo.emailId) {
-            this.onlineShoppingService.getSelectedBooksInfo(this.userInfo.emailId).subscribe((selectedBooks) => {
+            this.onlineLibraryMgmtService.getSelectedBooksInfo(this.userInfo.emailId).subscribe((selectedBooks) => {
               this.selectedBooks = selectedBooks;
               for (var j = 0; j < data.length; j++) {
                 for (var k = 0; k < this.selectedBooks.myBooks.length; k++) {
@@ -95,7 +92,7 @@ export class HomeComponent implements OnInit {
       this.selectedBooks = sb;
     }
     this.selectedBooks.emailId = this.userInfo.emailId;
-    this.onlineShoppingService.updateMyBooks(this.selectedBooks).subscribe((response: SelectedBooks) => {
+    this.onlineLibraryMgmtService.updateMyBooks(this.selectedBooks).subscribe((response: SelectedBooks) => {
       this.selectedBooks = response;
     }, (error: any) => {
       console.error('Error :=> ', error)
